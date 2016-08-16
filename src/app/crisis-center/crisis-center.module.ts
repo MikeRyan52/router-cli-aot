@@ -3,6 +3,7 @@
 import { NgModule }       from '@angular/core';
 import { FormsModule }    from '@angular/forms';
 import { CommonModule }   from '@angular/common';
+import { EffectsModule } from '@ngrx/effects';
 
 import { CrisisService }        from './crisis.service';
 // #docregion crisis-detail-resolve
@@ -16,11 +17,14 @@ import { CrisisAdminComponent }  from './crisis-admin.component';
 
 import { crisisCenterRouting } from './crisis-center.routing';
 
+import { DemoEffects } from './effects';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    crisisCenterRouting
+    crisisCenterRouting,
+    EffectsModule.run(DemoEffects)
   ],
   declarations: [
     CrisisCenterComponent,
@@ -37,6 +41,10 @@ import { crisisCenterRouting } from './crisis-center.routing';
   // #enddocregion crisis-detail-resolve
 })
 // #docregion crisis-center-module-export
-export class CrisisCenterModule {}
+export class CrisisCenterModule {
+  ngOnDestroy() {
+    console.log('Destroying');
+  }
+}
 // #enddocregion crisis-center-module-export
 // #enddocregion
